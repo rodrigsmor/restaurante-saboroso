@@ -22,15 +22,12 @@ router.get('/logout', function(req, res, next) {
 })
 
 router.get('/', function(req, res, next) {
-    //if(!req.session.user) {
-      //  res.redirect('/admin/login')
-    //} else {
-      //  res.redirect('/admin/index');
-    //}
-
-    res.render('admin/index', {
-        menus: req.menus,
-        user: req.session.user
+    admin.dashboard().then(data => {
+        res.render('admin/index', admin.getParams(req, {
+            data 
+        }));
+    }).catch(err => {
+        console.error(err);
     });
 });
 
