@@ -16,7 +16,7 @@
         <div class="box">
           <div class="box-header">
             <h3 class="box-title">Lista</h3>
-            <a href="#" class="btn btn-xs pull-right btn-success"><i
+            <a href="#" class="btn btn-xs pull-right btn-success" data-toggle="modal" data-target="#modal-create"><i
                 class="fa fa-plus"></i> Novo</a>
           </div>
           <!-- /.box-header -->
@@ -40,7 +40,7 @@
                     <td><%= row.title %></td>
                     <td><%= row.description %></td>
                     <td><%= row.price %></td>
-                    <td><button type="button" class="btn btn-xs btn-info btn-update" data-toggle="modal" data-target="#modal-update"><i
+                    <td><button type="button" class="btn btn-xs btn-info btn-update"><i
                           class="fa fa-pencil"></i> Editar</button>&nbsp;<button type="button" class="btn btn-xs btn-danger btn-delete"><i
                           class="fa fa-trash"></i> Excluir</button></td>
                   </tr>
@@ -138,9 +138,14 @@
     </div>
 <%- include("inc/footer") -%>
 
+<script src="/js/hcode-filereader.js"></script>
 <script>
+  new HcodeFileReader('#modal-create [type=file]', '#modal-create img');
+  new HcodeFileReader('#modal-update [type=file]', '#modal-update img');
+
   let formCreate = document.querySelector('#modal-create form');
 
+  
   formCreate.addEventListener('submit', e => {
     e.preventDefault();
 
@@ -168,7 +173,7 @@
       for(let name in data) {
         switch(name) {
           case 'photo':
-
+            formUpdate.querySelector('img').src = `/${data[name]}`;
           break;
 
           default:
@@ -178,7 +183,7 @@
         }
       }
 
-      //$('#modal-update').modal('show');
+      $('#modal-update').modal('show');
     })
   })
 </script>
