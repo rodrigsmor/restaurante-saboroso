@@ -49,9 +49,6 @@ router.post('/login', function(req, res, next) {
 
 router.get('/login', function(req, res, next) {
     users.render(req, res, null)
-    //if(!req.session.views) req.session.views = 0;
-    //console.log('SESSION: ' + req.session.views++);
-    //res.render('admin/login');
 });
 
 router.get('/contacts', function(req, res, next) {
@@ -71,7 +68,12 @@ router.get('/menus', function(req, res, next) {
 });
 
 router.post('/menus', function(req, res, next) {
-    res.send(req.body);
+    console.log('fields: ', req.fields)
+    menus.save(req.fields, req.files).then(results => {
+        res.send(results);
+    }).catch(err => {
+        res.send(err);
+    });
 })
 
 router.get('/reservations', function(req, res, next) {

@@ -38,7 +38,7 @@
                     <td><%= row.id %></td>
                     <td><img src="/<%= row.photo %>" alt="" style="height: 18px;"></td>
                     <td><%= row.title %></td>
-                    <td>row.description</td>
+                    <td><%= row.description %></td>
                     <td><%= row.price %></td>
                     <td><button type="button" class="btn btn-xs btn-info btn-update" data-toggle="modal" data-target="#modal-update"><i
                           class="fa fa-pencil"></i> Editar</button>&nbsp;<button type="button" class="btn btn-xs btn-danger btn-delete"><i
@@ -151,9 +151,7 @@
       body: formCreateData,
     }).then(response => response.json())
     .then(json => {
-      console.log('JSON = ', json);
+      window.location.reload();
     });
   })
-
-  console.log(formCreate);
 </script>
