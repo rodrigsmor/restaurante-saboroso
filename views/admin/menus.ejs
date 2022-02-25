@@ -16,7 +16,7 @@
         <div class="box">
           <div class="box-header">
             <h3 class="box-title">Lista</h3>
-            <a href="#" class="btn btn-xs pull-right btn-success" data-toggle="modal" data-target="#modal-create"><i
+            <a href="#" class="btn btn-xs pull-right btn-success"><i
                 class="fa fa-plus"></i> Novo</a>
           </div>
           <!-- /.box-header -->
@@ -153,5 +153,32 @@
     .then(json => {
       window.location.reload();
     });
+  });
+
+  let formUpdate = document.querySelector('#modal-update form');
+
+  [...document.querySelectorAll('.btn-update')].forEach(btn => {
+    btn.addEventListener('click', e => {
+      let tr = e.composedPath().find(el => {
+        return (el.tagName.toUpperCase() === 'TR');
+      });
+
+      let data = JSON.parse(tr.dataset.row);
+
+      for(let name in data) {
+        switch(name) {
+          case 'photo':
+
+          break;
+
+          default:
+            let input = formUpdate.querySelector(`[name=${name}]`)
+            if(input) input.value = data[name];
+          break;
+        }
+      }
+
+      //$('#modal-update').modal('show');
+    })
   })
 </script>
