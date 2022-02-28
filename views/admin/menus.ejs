@@ -99,7 +99,7 @@
     <div class="modal fade" id="modal-update">
       <div class="modal-dialog">
         <div class="modal-content" style="border-top: 3px solid #00c0ef;">
-          <form method="post" action="/admin/menus>
+          <form method="post" action="/admin/menus">
             <input type="hidden" name="id">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -150,7 +150,7 @@
   formCreate.save().then(json => {
     window.location.reload();
   }).catch(err => {
-    console.error(err)
+    console.log(err);
   });
 
   let formUpdate = document.querySelector('#modal-update form');
@@ -158,7 +158,27 @@
   formUpdate.save().then(json => {
     window.location.reload();
   }).catch(err => {
-    console.error(err)
+    console.log(err);
+  });
+
+  [...document.querySelectorAll('.btn-delete')].forEach(btn => {
+    btn.addEventListener('click', e => {
+      let tr = e.composedPath().find(el => {
+        return (el.tagName.toUpperCase() === 'TR');
+      });
+      
+      let data = JSON.parse(tr.dataset.row);
+
+      if(confirm(`Deseja realmente excluir o menu ${data.title}?`)) {
+        fetch(`/admin/menus/${data.id}`, {
+	        method: 'DELETE',
+        })
+	        .then(response => response.json())
+      	  .then(json => {
+            window.location.reload();
+	        })
+      }
+    })
   });
 
   [...document.querySelectorAll('.btn-update')].forEach(btn => {

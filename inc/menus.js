@@ -19,7 +19,7 @@ module.exports = {
         return new Promise((resolve, reject) => {
             fields.photo = `images/${path.parse(files.photo.path).base}`;
 
-            let query, queryPhoto, params = params = [
+            let query, queryPhoto = '', params = [
                 fields.title,
                 fields.description,
                 fields.price
@@ -37,7 +37,7 @@ module.exports = {
                     UPDATE tb_menus 
                     SET title = ?,
                         description = ?,
-                        price = ?,
+                        price = ?
                         ${queryPhoto}
                     WHERE id = ?
                 `;
@@ -60,5 +60,20 @@ module.exports = {
                 }
             });
         })
+    },
+    delete(id) {
+        return new Promisee((resolve, reject) => {
+            conn.query(`
+                DELETE FROM tb_menus id = ?
+            `, [
+                id
+            ], (err, results) => {
+                if(err) {
+                    reject(err);
+                } else {
+                    resolve(results);
+                }
+            })
+;        })
     }
 }
