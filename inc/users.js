@@ -1,4 +1,4 @@
-var connect = require("./db")
+var conn = require("./db")
 
 module.exports = {
     render(req, res, error) {
@@ -9,7 +9,7 @@ module.exports = {
     },
     login(email, password) {
         return new Promise((resolve, reject) => {
-            connect.query(`
+            conn.query(`
                 SELECT * FROM tb_users WHERE email = ?
             `, [
                 email
@@ -45,7 +45,7 @@ module.exports = {
             });
         })
     },
-    save(fields, files) {
+    save(fields) {
         return new Promise((resolve, reject) => {
             let query, params = [
                 fields.name,
@@ -58,7 +58,7 @@ module.exports = {
                 query = `
                     UPDATE tb_users 
                     SET name = ?,
-                        users = ?
+                        email = ?
                     WHERE id = ?
                 `;
             } else {

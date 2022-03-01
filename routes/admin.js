@@ -136,8 +136,6 @@ router.delete('/users/:id', function(req, res, next) {
     }).catch(err => {
         res.send(err);
     })
-
-    res.render('admin/users', admin.getParams(req));
 });
 
 module.exports = router;
