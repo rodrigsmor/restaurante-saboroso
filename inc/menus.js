@@ -74,6 +74,6 @@ module.exports = {
                     resolve(results);
                 }
             })
-;        })
+        })
     }
 }
