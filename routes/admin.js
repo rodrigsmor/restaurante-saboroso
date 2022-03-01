@@ -4,6 +4,7 @@ var router = express.Router();
 var admin = require('../inc/admin')
 var users = require('./../inc/users');
 var menus = require('../inc/menus');
+var contacts = require('../inc/contacts');
 var reservations = require('../inc/reservations');
 
 moment.locale('pt-BR');
@@ -56,7 +57,23 @@ router.get('/login', function(req, res, next) {
 });
 
 router.get('/contacts', function(req, res, next) {
+    contacts.getContacts().then(data => {
+        res.render('admin/contacts', admin.getParams(req, {
+            data
+        }));
+    })
+});
+
+router.get('/contacts', function(req, res, next) {
     res.render('admin/contacts', admin.getParams(req));
+});
+
+router.delete('/contacts/:id', function(req, res, next) {
+    contacts.delete(req.params.id).then(results => {
+        res.send(results);
+    }).catch(err => {
+        res.send(err);
+    });
 });
 
 router.get('/emails', function(req, res, next) {
