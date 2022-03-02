@@ -6,6 +6,7 @@ var menus = require('../inc/menus');
 var users = require('../inc/users');
 var emails = require('../inc/emails');
 var contacts = require('../inc/contacts');
+var Pagination = require('../inc/Pagination');
 var reservations = require('../inc/reservations');
 
 moment.locale('pt-BR');

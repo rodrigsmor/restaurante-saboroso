@@ -4,7 +4,8 @@ const connection = mysql.createConnection({
     host: 'localhost',
     user: 'user',
     database: 'saboroso',
-    password: 'Clear.Rod22'
+    password: 'Clear.Rod22',
+    multipleStatements: true
 });
 
 module.exports = connection;
